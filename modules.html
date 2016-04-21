@@ -1,0 +1,47 @@
+<html>
+
+<head>
+
+<script>
+
+var Exposer = (function() {
+  var privateVariable = 10;
+  var publicVariable = 20;
+
+  var privateMethod = function() {
+    console.log('Inside a private method!');
+    privateVariable++;
+  }
+
+  var methodToExpose = function() {
+    console.log('This is a method I want to expose!');
+  }
+
+  var otherMethodIWantToExpose = function() {
+    privateMethod();
+  }
+  
+  var methodWithParamters = function (a,b) {
+	console.log(a + ' ' + b);
+  }
+
+  return {
+      first: methodToExpose,
+      second: otherMethodIWantToExpose,
+	  third: methodWithParamters,
+	  publicVariable
+  };
+})();
+
+Exposer.first();        // Output: This is a method I want to expose!
+Exposer.second();       // Output: Inside a private method!
+Exposer.methodToExpose; // undefined
+Exposer.third("Hello", "World"); // Method accepting paramters
+console.log(Exposer.publicVariable); // Printing public variable
+
+</script>
+</head>
+
+<body>
+</body>
+</html>
